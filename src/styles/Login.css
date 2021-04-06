@@ -1,0 +1,89 @@
+h1 {
+    color: rgb(48, 75, 77);
+}
+
+.bg {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background-color: #fafaff;
+}
+
+.centerThing {
+    display: flex;
+    flex-direction: column;
+    background-color: white;
+    width: 40%;
+    min-height: 60%;
+    border-radius: 16px;
+    padding: 20px;
+    align-self: center;
+}
+
+.loginForm {
+    display: flexbox;
+    box-shadow: 1px 0 30px rgba(114,182,234,.2);
+    background-color: white;
+    width: 40%;
+    min-height: 60%;
+    border-radius: 16px;
+    padding: 20px;
+    align-self: center;
+}
+
+.formField {
+    position: relative;
+    display: flex;
+    border: 1px solid #caeaf6;
+    padding: 5px;
+    border-radius: 7px;
+    margin-bottom: 2em;
+}
+
+.formField:focus-within {
+    border-color: #6fb5d1;
+}
+ 
+.formFieldInput {
+    font-size: 1rem;
+    padding: 11px;
+    padding-right: 5px;
+    border: 0;
+    color: rgba(32,78,87,.9);
+    box-shadow: none;
+    background-color: #fff;
+    margin: 0;
+    flex: 1;
+    border-radius: 7px;
+    border-color: transparent;
+    outline: 0;
+}
+  
+.formFieldLabel {
+    color: rgba(39,95,106,.85);
+    position: absolute;
+    top: -.9em;
+    left: calc(.75rem - 2px);
+    background-color: #fff;
+    padding: 0 8px;
+    font-size: 1rem;
+}
+
+.formField:focus-within .formFieldLabel {
+    color: rgba(25, 74, 84, 0.85);
+    font-weight: 600;
+}
+
+.loginButton {
+    width: 100%;
+    background-color: rgb(19, 137, 150);
+    color: white;
+    border: 1px solid #caeaf6;
+    border-radius: 7px;
+    font-size: 1rem;
+    padding: 16px;
+    font-weight: bold;
+    letter-spacing: 0.1rem;
+}

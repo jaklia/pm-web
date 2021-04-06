@@ -1,0 +1,95 @@
+/*
+import { FC } from 'react'
+import "../styles/Login.css"
+
+export const Login: FC = () => {
+  return (
+    <div className='bg'>
+      <div className='centerThing'>
+        <p>login</p>
+        <form title="Login" className='loginForm'>
+          <div className='formField'>
+            <label className='formFieldLabel' htmlFor='username'>
+              Name:
+              </label>
+            <input className='formFieldInput' type='text' name='username' />
+          </div>
+          <div className='formField'>
+            <label className='formFieldLabel' htmlFor='password'>
+              Password:
+              </label>
+            <input className='formFieldInput' type='password' name='password' />
+          </div>
+          <input type='submit' value='Login' />
+        </form>
+      </div>
+    </div>
+  )
+}
+export default Login;
+*/
+
+/*
+.bg {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background-color: #fafaff;
+}
+
+.centerThing {
+    display: flex;
+    flex-direction: column;
+    background-color: white;
+    width: 40%;
+    min-height: 60%;
+    border-radius: 16px;
+    padding: 20px;
+    align-self: center;
+}
+
+.loginForm {
+    display: flex;
+    flex-direction: column;
+}
+
+.formField {
+    position: relative;
+    display: flex;
+    border: 1px solid #caeaf6;
+    padding: 5px;
+    border-radius: 7px;
+    margin-bottom: 2em;
+}
+
+.formField--focused {
+    border-color: #6fb5d1;
+}
+
+.formFieldInput {
+    font-size: 1rem;
+    padding: 11px;
+    padding-right: 5px;
+    border: 0;
+    color: rgba(32,78,87,.9);
+    box-shadow: none;
+    background-color: #fff;
+    margin: 0;
+    flex: 1;
+    border-radius: 7px;
+    transition: color .15s ease-out,border-color .2s ease;
+    border-color: transparent;
+    outline: 0;
+}
+
+.formFieldLabel {
+    color: rgba(39,95,106,.85);
+    position: absolute;
+    top: -.9em;
+    left: calc(.75rem - 2px);
+    background-color: #fff;
+    padding: 0 8px;
+    font-size: 1rem;
+}
+*/
