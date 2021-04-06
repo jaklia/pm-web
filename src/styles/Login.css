@@ -27,7 +27,7 @@ h1 {
     box-shadow: 1px 0 30px rgba(114,182,234,.2);
     background-color: white;
     width: 40%;
-    min-height: 60%;
+    min-height: max-content;
     border-radius: 16px;
     padding: 20px;
     align-self: center;
