@@ -20,7 +20,7 @@ export default function Projects() {
     <div>
       <h1>Projects</h1>
       <input type='button' onClick={() => alert('aasd')} value="add new" />
-      {store && store.projects.map(project => (<p>{project.name}</p>))}
+      {store && store.projects.map(project => (<p key={project.id}>{project.name}</p>))}
     </div>
   )
 }
