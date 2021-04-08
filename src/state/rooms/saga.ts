@@ -5,20 +5,27 @@ import { IPostRoomsRequestAction, postRoomsActionTypes, postRoomsSuccess } from 
 import { IPutRoomsRequestAction, putRoomsSuccess } from "./actions/put";
 
 export function* roomsSaga() {
-  yield all([watchGetRooms(), watchPostRooms(), watchPutRooms()]);
+  yield all([watchRooms()]);
+  // yield all([watchGetRooms(), watchPostRooms(), watchPutRooms()]);
 }
 
-function* watchGetRooms() {
+function* watchRooms() {
   yield takeEvery(getRoomsActionTypes.REQUEST, getRooms);
-}
-
-function* watchPostRooms() {
   yield takeEvery(postRoomsActionTypes.REQUEST, postRooms);
-}
-
-function* watchPutRooms() {
   yield takeEvery(putProjectsActionTypes.REQUEST, putRooms);
 }
+
+// function* watchGetRooms() {
+//   yield takeEvery(getRoomsActionTypes.REQUEST, getRooms);
+// }
+
+// function* watchPostRooms() {
+//   yield takeEvery(postRoomsActionTypes.REQUEST, postRooms);
+// }
+
+// function* watchPutRooms() {
+//   yield takeEvery(putProjectsActionTypes.REQUEST, putRooms);
+// }
 
 function* getRooms(action: IGetRoomsRequestAction) {
   const rooms = [{ id: 1, name: "R11", capacity: 20 }, { id: 2, name: "R22", capacity: 20 }];

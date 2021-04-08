@@ -1,5 +1,7 @@
 
 import { AnyAction, combineReducers, Reducer } from "redux"
+import { leavesReducer } from "./leaves/reducer"
+import { ILeavesStore } from "./leaves/store"
 import { projectsReducer } from "./projects/reducer"
 import { IProjectsStore } from "./projects/store"
 import { roomsReducer } from "./rooms/reducer"
@@ -14,6 +16,7 @@ export interface IStoreBase {
 export interface IAppStore {
   projects: IProjectsStore;
   rooms: IRoomStore;
+  leaves: ILeavesStore;
 }
 
 export interface IApplicationState {
@@ -25,6 +28,7 @@ export interface IApplicationState {
 export const appReducer = combineReducers<IAppStore>({
   projects: projectsReducer,
   rooms: roomsReducer,
+  leaves: leavesReducer,
 })
 
 export const appRootReducer: Reducer<IAppStore> = (
