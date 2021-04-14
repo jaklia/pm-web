@@ -1,4 +1,5 @@
 import { all, takeEvery, put } from 'redux-saga/effects'
+import { ProjectsApi } from '../../network/api/projects';
 import { IGetProjectsRequestAction, getProjectsActionTypes, getProjectsSuccess } from './actions/get'
 import { IPostProjectsRequestAction, postProjectsActionTypes, postProjectsSuccess } from './actions/post'
 import { IPutProjectsRequestAction, putProjectsActionTypes, putProjectsSuccess } from './actions/put';
@@ -28,6 +29,7 @@ function* getProjects(action: IGetProjectsRequestAction) {
         { id: 1, name: 'asd 11', description: 'lorem ipsum', issueCount: 0 },
         { id: 2, name: 'asd 22', description: 'lorem ipsum', issueCount: 0 }
     ];
+    const res = ProjectsApi.getAllProjects();
     yield put(getProjectsSuccess(mockProjects));
 }
 
