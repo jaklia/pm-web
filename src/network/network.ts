@@ -38,8 +38,7 @@ const responseLogger = (response: AxiosResponse<any>) => {
   }
   if (!!response.config.method) {
     console.log(
-      `Response ${response.status}: ${response.config.method.toUpperCase()} - ${response.config.url
-      }`
+      `Response ${response.status}: ${response.config.method.toUpperCase()} - ${response.config.url}`
     )
   } else {
     console.log(`Response ${response.status}: [method] - ${response.config.url}`)
@@ -70,6 +69,7 @@ network.interceptors.request.use(
     requestLogger(reqConfig)
 
     let token = localStorage.getItem('ACCESS_TOKEN');
+    console.log(token)
 
     reqConfig.headers = {
       ...reqConfig.headers,
@@ -84,17 +84,10 @@ network.interceptors.request.use(
 network.interceptors.response.use(
   async (response: AxiosResponse<any>) => {
     responseLogger(response)
-
-    const config: IRequestConfig = response.config
-
-    console.log('response', config.url)
-
     return response
   },
   async (err: AxiosError<any>) => {
     responseErrorLogger(err)
-
-    const config: IRequestConfig = err.config
-
+    return Promise.reject(err)
   }
 )
