@@ -1,4 +1,5 @@
 import axios, { AxiosResponse, AxiosRequestConfig, AxiosError } from 'axios'
+import { localStorageKeys } from '../constants/enums';
 
 interface IRequestConfig extends AxiosRequestConfig {
   metadata?: any
@@ -68,7 +69,7 @@ network.interceptors.request.use(
   async (reqConfig: IRequestConfig) => {
     requestLogger(reqConfig)
 
-    let token = localStorage.getItem('ACCESS_TOKEN');
+    let token = localStorage.getItem(localStorageKeys.ACCESS_TOKEN);
     console.log(token)
 
     reqConfig.headers = {

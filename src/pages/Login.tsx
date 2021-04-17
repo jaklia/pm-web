@@ -1,30 +1,58 @@
-import { FC, useState } from 'react'
-import { useDispatch } from 'react-redux';
+import { FC, useCallback, useEffect, useState } from 'react'
+import { useDispatch, useSelector } from 'react-redux';
+import { useHistory, useLocation, useParams } from 'react-router-dom';
 import { loginRequest } from '../state/auth/actions/login';
+import { IApplicationState } from '../state/store';
 import "../styles/Login.css"
-
-
 
 export const Login: FC = () => {
   const dispatch = useDispatch();
   const [userName, setName] = useState("");
   const [password, setPassword] = useState("");
+  const authenticated = useSelector<IApplicationState, boolean>(
+    state => state.app.auth.authenticated);
+
+
+  let history = useHistory();
+  let location: any = useLocation();
+
+
+  let { from } = location.state || { from: { pathname: "/users" } };
+
+  // tried this , but it crashes, as it's unsafe (it says so in the error msg)
   // useEffect(() => {
-  //   console.log(userName, password)
-  // }, [userName, password])
+  //   if (authenticated) {
+  //     history.replace(from.pathname);
+  //   } else {
+  //     history.replace('/')
+  //   }
+  // },
+  //   [authenticated, history, from])
+
+  // found somewhere, but it's 
+  // let login = () => {
+  //   auth.signin(() => {
+  //     history.replace(from);
+  //   });
+  // };
+
+
+  // this works, but gives a warning (cannot update during state transition)
+  // if (authenticated) {
+  //   const newRoute = from ?? { pathname: "/users" };
+  //   history.replace(newRoute);
+  // }
+  console.log(location)
+
   return (
     <div className='bg'>
-      {/* <h1>login</h1> */}
-      {/* <div className='centerThing'> */}
+      <h1>{authenticated ? 'true' : 'false'}</h1>
       <form className='loginForm'
-        onSubmit={(e) => {
-          // prevent the default behavior (putting name and password as path params)
-          e.preventDefault();
-          // TODO:   extract this to auth saga
-          // AuthApi.login(userName, password);
-          dispatch(loginRequest({ userName, password }));
-
-        }}
+      // onSubmit={(e) => {
+      //   // prevent the default behavior (putting name and password as path params)
+      //   e.preventDefault();
+      //   dispatch(loginRequest({ userName, password }));
+      // }}
       >
         <div className='formField'>
           <label className='formFieldLabel' htmlFor='username'>
@@ -46,7 +74,11 @@ export const Login: FC = () => {
             value={password}
             onChange={e => setPassword(e.target.value)} />
         </div>
-        <input className='loginButton' type='submit' value='Login' />
+        <input className='loginButton' type='submit' value='Login' onClick={(e) => {
+          // prevent the default behavior (putting name and password as path params)
+          e.preventDefault();
+          dispatch(loginRequest({ userName, password }));
+        }} />
       </form>
       {/* </div> */}
     </div>

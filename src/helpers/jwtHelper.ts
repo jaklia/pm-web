@@ -1,4 +1,4 @@
-import jwtDecode, { InvalidTokenError } from "jwt-decode";
+import jwtDecode from "jwt-decode";
 
 
 export class JWTHelper {
@@ -7,9 +7,7 @@ export class JWTHelper {
 
 
     let decoded: { [key: string]: string } = jwtDecode(token);
-    console.log(decoded);
     let id = parseInt(decoded['sub'])
-    console.log(id)
     if (isNaN(id) && id <= 0) {
       throw Error('Invalid id')
     }

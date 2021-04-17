@@ -2,8 +2,8 @@ import { all, call, put, takeLatest } from "@redux-saga/core/effects";
 import { AxiosResponse } from "axios";
 import { AuthApi } from "../../network/api/auth";
 import { ILoginRequestAction, loginFail, loginActionTypes, loginSuccess } from "./actions/login";
-import { LoginResponse } from "../../models/loginResponse"
 import { JWTHelper } from "../../helpers/jwtHelper";
+import { localStorageKeys } from "../../constants/enums";
 
 
 export function* authSaga() {
@@ -19,9 +19,9 @@ function* login(action: ILoginRequestAction) {
     // const res = yield AuthApi.login(action.data.userName, action.data.password);
     const res: AxiosResponse<any> = yield call(
       AuthApi.login, action.data.userName, action.data.password);
-    console.log(res.data.accessToken)
+
     let token: string = res.data.accessToken.toString();
-    yield call([localStorage, localStorage.setItem], 'ACCESS_TOKEN', token);
+    yield call([localStorage, localStorage.setItem], localStorageKeys.ACCESS_TOKEN, token);
     let userId: number = yield call(JWTHelper.getUserId, token);
     yield put(loginSuccess());
   } catch (error) {

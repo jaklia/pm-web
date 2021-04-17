@@ -1,12 +1,10 @@
-import React, { useEffect } from 'react'
+import { FC, useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { getProjectsRequest } from '../state/projects/actions/get';
-import { postProjectsRequest } from '../state/projects/actions/post';
 import { IApplicationState } from '../state/store'
 
-export default function Projects() {
+const Projects: FC = () => {
   const store = useSelector((state: IApplicationState) => {
-    console.log("aaaaaasd")
     return state.app.projects
   });
   const dispatch = useDispatch();
@@ -24,5 +22,5 @@ export default function Projects() {
     </div>
   )
 }
-
+export default Projects;
 

@@ -1,14 +1,14 @@
-import React from 'react';
-import logo from './logo.svg';
 import './App.css';
-import { Route, Router, Switch } from 'react-router';
-import { BrowserRouter, Link } from 'react-router-dom';
+import { Route, Switch } from 'react-router';
+import { BrowserRouter } from 'react-router-dom';
 import Login from './pages/Login';
 import NavMenu from './components/navigation';
 import Projects from './pages/Projects';
 import Meetings from './pages/Meetings';
 import Rooms from './pages/Rooms';
 import Users from './pages/Users';
+import PrivateRoute from './components/privateRoute';
+import Leaves from './pages/Leaves';
 
 function App() {
   return (
@@ -16,20 +16,14 @@ function App() {
       <NavMenu />
       <Switch>
 
-        <Route exact path="/">
-          <Login />
-        </Route>
-        <Route exact path="/projects">
-          <Projects />
-        </Route>
-        <Route exact path="/meetings">
-          <Meetings />
-        </Route>
-        <Route exact path="/rooms">
-          <Rooms />
-        </Route>
-        <Route exact path="/users" component={Users}>
-        </Route>
+        <Route exact path="/" component={Login} />
+
+
+        <PrivateRoute exact path="/users" component={Users} />
+        <PrivateRoute exact path="/projects" component={Projects} />
+        <PrivateRoute exact path="/meetings" component={Meetings} />
+        <PrivateRoute exact path="/leaves" component={Leaves} />
+        <PrivateRoute exact path="/rooms" component={Rooms} />
       </Switch>
     </BrowserRouter>
   );

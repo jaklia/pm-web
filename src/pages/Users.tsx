@@ -1,9 +1,10 @@
-import React from 'react'
+import React, { FC } from 'react'
 
-export default function Users() {
+export const Users: FC = () => {
   return (
     <div>
       <h1>users</h1>
     </div>
   )
 }
+export default Users;

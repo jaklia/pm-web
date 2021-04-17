@@ -1,5 +1,4 @@
-import React from 'react'
-import { Button, Form, FormControl, Nav, Navbar, NavItem } from 'react-bootstrap'
+import { Nav, Navbar } from 'react-bootstrap'
 import { Link } from 'react-router-dom'
 
 export default function NavMenu() {
