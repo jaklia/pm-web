@@ -3,6 +3,7 @@ import { AxiosResponse } from "axios";
 import { AuthApi } from "../../network/api/auth";
 import { ILoginRequestAction, loginFail, loginActionTypes, loginSuccess } from "./actions/login";
 import { LoginResponse } from "../../models/loginResponse"
+import { JWTHelper } from "../../helpers/jwtHelper";
 
 
 export function* authSaga() {
@@ -19,14 +20,20 @@ function* login(action: ILoginRequestAction) {
     const res: AxiosResponse<any> = yield call(
       AuthApi.login, action.data.userName, action.data.password);
     console.log(res.data.accessToken)
-    yield call([localStorage, localStorage.setItem], 'ACCESS_TOKEN', res.data.accessToken.toString());
+    let token: string = res.data.accessToken.toString();
+    yield call([localStorage, localStorage.setItem], 'ACCESS_TOKEN', token);
+    let userId: number = yield call(JWTHelper.getUserId, token);
+    yield put(loginSuccess());
   } catch (error) {
     if (error.response && (error.response.status === 401 || error.response.status === 404)) {
       // The request was made and the server responded with a status code
       // that falls out of the range of 2xx
       yield put(loginFail('Incorrect username or password'));
       console.log('401/404')
-    } else {
+    } /*else if (error.message && error.message === 'Invalid id') {
+      yield put(loginFail('Invalid id'));
+      console.log('invalid id')
+    }*/ else {
       yield put(loginFail('Something went wrong'));
       //yield call(console.log, 'Something went wrong')
       console.log('Something went wrong')
