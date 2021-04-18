@@ -12,10 +12,12 @@ export const Login: FC = () => {
   const authenticated = useSelector<IApplicationState, boolean>(
     state => state.app.auth.authenticated);
 
+  //  TODO:  maybe pass the history and pathname stuff 
+  //     along with the login_request action
+  //     and try hacking the history in the saga
 
   let history = useHistory();
   let location: any = useLocation();
-
 
   let { from } = location.state || { from: { pathname: "/users" } };
 

@@ -8,6 +8,8 @@ import { projectsReducer } from "./projects/reducer"
 import { IProjectsStore } from "./projects/store"
 import { roomsReducer } from "./rooms/reducer"
 import { IRoomStore } from "./rooms/store"
+import { usersReducer } from "./users/reducer"
+import { IUsersStore } from "./users/store"
 
 export interface IStoreBase {
   isLoaded: boolean;
@@ -16,10 +18,11 @@ export interface IStoreBase {
 }
 
 export interface IAppStore {
+  auth: IAuthStore;
+  users: IUsersStore;
   projects: IProjectsStore;
   rooms: IRoomStore;
   leaves: ILeavesStore;
-  auth: IAuthStore;
 }
 
 export interface IApplicationState {
@@ -29,10 +32,11 @@ export interface IApplicationState {
 
 
 export const appReducer = combineReducers<IAppStore>({
+  auth: authReducer,
+  users: usersReducer,
   projects: projectsReducer,
   rooms: roomsReducer,
   leaves: leavesReducer,
-  auth: authReducer,
 })
 
 export const appRootReducer: Reducer<IAppStore> = (
