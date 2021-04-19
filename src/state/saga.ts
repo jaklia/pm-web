@@ -3,6 +3,7 @@ import { authSaga } from "./auth/saga";
 import { leavesSaga } from "./leaves/saga";
 import { projectsSaga } from "./projects/saga";
 import { roomsSaga } from "./rooms/saga";
+import { usersSaga } from "./users/saga";
 
 export function* rootSaga() {
     yield all([
@@ -10,5 +11,6 @@ export function* rootSaga() {
         projectsSaga(),
         roomsSaga(),
         leavesSaga(),
+        usersSaga(),
     ]);
 }
