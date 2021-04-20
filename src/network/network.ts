@@ -39,8 +39,7 @@ const responseLogger = (response: AxiosResponse<any>) => {
   }
   if (!!response.config.method) {
     console.log(
-      `Response ${response.status}: ${response.config.method.toUpperCase()} - ${
-        response.config.url
+      `Response ${response.status}: ${response.config.method.toUpperCase()} - ${response.config.url
       }`
     );
   } else {

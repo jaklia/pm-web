@@ -76,7 +76,9 @@ const Projects: FC = () => {
           handleShow();
           setEdited(project);
         }}
-        onDelete={(p) => alert(`delete ${p.name}?`)}
+        onDelete={(p) => {
+          alert(`delete ${p.name}?`);
+        }}
         renderRow={(project) => (
           <>
             <td>{project.name}</td>

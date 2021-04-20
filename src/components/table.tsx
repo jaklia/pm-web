@@ -19,10 +19,12 @@ const PmTable = <T extends unknown>({ ...props }: TableProps<T>) => {
     <div>
       <Table striped bordered hover className={'pmtable'}>
         <thead>
-          {header.map((item) => (
-            <th>{item}</th>
-          ))}
-          <th></th>
+          <tr>
+            {header.map((item) => (
+              <th key={item}>{item}</th>
+            ))}
+            <th key={'actions_'}></th>
+          </tr>
         </thead>
         <tbody>
           {data.map((item) => {
@@ -32,20 +34,16 @@ const PmTable = <T extends unknown>({ ...props }: TableProps<T>) => {
                 <td>
                   {/* <ButtonToolbar> */}
                   <Button
-                    style={{
-                      paddingTop: 8,
-                      paddingBottom: 8,
-                      marginRight: 12,
-                    }}
+                    style={styles.btnRightMargin}
                     variant='outline-primary'
                     onClick={() => onEdit(item)}>
-                    <FiEdit style={{ display: 'flex', alignSelf: 'center' }} />
+                    <FiEdit style={styles.btnIcon} />
                   </Button>
                   <Button
-                    style={{ paddingTop: 8, paddingBottom: 8 }}
+                    style={styles.btn}
                     variant='outline-danger'
                     onClick={() => onDelete(item)}>
-                    <FiTrash style={{ display: 'flex', alignSelf: 'center' }} />
+                    <FiTrash style={styles.btnIcon} />
                   </Button>
                   {/* </ButtonToolbar> */}
                 </td>
@@ -58,6 +56,22 @@ const PmTable = <T extends unknown>({ ...props }: TableProps<T>) => {
   );
 };
 export default PmTable;
+
+const styles: { [key: string]: React.CSSProperties } = {
+  btnRightMargin: {
+    paddingTop: 8,
+    paddingBottom: 8,
+    marginRight: 12,
+  },
+  btn: {
+    paddingTop: 8,
+    paddingBottom: 8,
+  },
+  btnIcon: {
+    display: 'flex',
+    alignSelf: 'center',
+  },
+};
 
 /*
 
