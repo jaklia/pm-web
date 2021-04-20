@@ -1,42 +1,52 @@
-import { all, takeEvery, put } from 'redux-saga/effects'
+import { all, takeEvery, put } from 'redux-saga/effects';
 import { ProjectsApi } from '../../network/api/projects';
-import { IGetProjectsRequestAction, getProjectsActionTypes, getProjectsSuccess } from './actions/get'
-import { IPostProjectsRequestAction, postProjectsActionTypes, postProjectsSuccess } from './actions/post'
-import { IPutProjectsRequestAction, putProjectsActionTypes, putProjectsSuccess } from './actions/put';
+import {
+  IGetProjectsRequestAction,
+  getProjectsActionTypes,
+  getProjectsSuccess,
+} from './actions/get';
+import {
+  IPostProjectsRequestAction,
+  postProjectsActionTypes,
+  postProjectsSuccess,
+} from './actions/post';
+import {
+  IPutProjectsRequestAction,
+  putProjectsActionTypes,
+  putProjectsSuccess,
+} from './actions/put';
 
 export function* projectsSaga() {
-    console.log("watcher saga ")
-    yield all([watchGetProjects(), watchPostProjects(), watchPutProjects()]);
+  console.log('watcher saga ');
+  yield all([watchGetProjects(), watchPostProjects(), watchPutProjects()]);
 }
 
 function* watchGetProjects() {
-    yield takeEvery(getProjectsActionTypes.REQUEST, getProjects);
+  yield takeEvery(getProjectsActionTypes.REQUEST, getProjects);
 }
 
 function* watchPostProjects() {
-    yield takeEvery(postProjectsActionTypes.REQUEST, postProjects);
+  yield takeEvery(postProjectsActionTypes.REQUEST, postProjects);
 }
 
 function* watchPutProjects() {
-    yield takeEvery(putProjectsActionTypes.REQUEST, putProjects);
+  yield takeEvery(putProjectsActionTypes.REQUEST, putProjects);
 }
 
-
-
 function* getProjects(action: IGetProjectsRequestAction) {
-    console.log('get project saga')
-    const mockProjects = [
-        { id: 1, name: 'asd 11', description: 'lorem ipsum', issueCount: 0 },
-        { id: 2, name: 'asd 22', description: 'lorem ipsum', issueCount: 0 }
-    ];
-    const res = ProjectsApi.getAllProjects();
-    yield put(getProjectsSuccess(mockProjects));
+  console.log('get project saga');
+  const mockProjects = [
+    { id: 1, name: 'asd 11', description: 'lorem ipsum', issueCount: 0 },
+    { id: 2, name: 'asd 22', description: 'lorem ipsum', issueCount: 0 },
+  ];
+  const res = ProjectsApi.getAllProjects();
+  yield put(getProjectsSuccess(mockProjects));
 }
 
 function* postProjects(action: IPostProjectsRequestAction) {
-    yield put(postProjectsSuccess({ id: 1, name: 'asd', description: 'lorem ipsum', issueCount: 0 }));
+  yield put(postProjectsSuccess({ id: 1, name: 'asd', description: 'lorem ipsum', issueCount: 0 }));
 }
 
 function* putProjects(action: IPutProjectsRequestAction) {
-    yield put(putProjectsSuccess(action.data));
+  yield put(putProjectsSuccess(action.data));
 }

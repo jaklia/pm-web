@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom'
 
 export default function NavMenu() {
   return (
-    <Navbar bg="light" variant="light">
+    <Navbar bg='light' variant='light'>
       <Nav className="mr-auto">
 
         <Nav.Link as={Link} to="/users" href="/users">

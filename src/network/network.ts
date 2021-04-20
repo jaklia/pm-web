@@ -1,8 +1,8 @@
-import axios, { AxiosResponse, AxiosRequestConfig, AxiosError } from 'axios'
+import axios, { AxiosResponse, AxiosRequestConfig, AxiosError } from 'axios';
 import { localStorageKeys } from '../constants/enums';
 
 interface IRequestConfig extends AxiosRequestConfig {
-  metadata?: any
+  metadata?: any;
 }
 
 const baseUrl = 'https://pmbackendapi1.azurewebsites.net';
@@ -12,83 +12,85 @@ export const network = axios.create({
   timeout: 10000,
   headers: {
     'Content-Type': 'application/json',
-    'Accept': 'application/json',
-  }
-})
+    Accept: 'application/json',
+  },
+});
 
 const responseErrorLogger = (err: AxiosError<any>) => {
-  let responseBody = 'empty'
+  let responseBody = 'empty';
   if (err.response && err.response.data) {
-    const responseBodyString = JSON.stringify(err.response.data)
-    responseBody = responseBodyString.length !== 0 ? responseBodyString : responseBody
+    const responseBodyString = JSON.stringify(err.response.data);
+    responseBody = responseBodyString.length !== 0 ? responseBodyString : responseBody;
   }
 
   if (err.response && err.config.method) {
     console.log(
       `Response ${err.response.status}: ${err.config.method.toUpperCase()} - ${err.config.url}`
-    )
-    console.log(`Response body: ${responseBody}`)
+    );
+    console.log(`Response body: ${responseBody}`);
   }
-}
+};
 
 const responseLogger = (response: AxiosResponse<any>) => {
-  let responseBody = 'empty'
+  let responseBody = 'empty';
   if (response && response.data) {
-    const responseBodyString = JSON.stringify(response.data)
-    responseBody = responseBodyString.length !== 0 ? responseBodyString : responseBody
+    const responseBodyString = JSON.stringify(response.data);
+    responseBody = responseBodyString.length !== 0 ? responseBodyString : responseBody;
   }
   if (!!response.config.method) {
     console.log(
-      `Response ${response.status}: ${response.config.method.toUpperCase()} - ${response.config.url}`
-    )
+      `Response ${response.status}: ${response.config.method.toUpperCase()} - ${
+        response.config.url
+      }`
+    );
   } else {
-    console.log(`Response ${response.status}: [method] - ${response.config.url}`)
+    console.log(`Response ${response.status}: [method] - ${response.config.url}`);
   }
-  console.log(`Response body: ${responseBody}`)
-}
+  console.log(`Response body: ${responseBody}`);
+};
 
 const requestLogger = (reqConfig: IRequestConfig) => {
-  let requestBody = 'empty'
+  let requestBody = 'empty';
   if (reqConfig.data) {
-    const requestBodyString = JSON.stringify(reqConfig.data)
-    requestBody = requestBodyString.length !== 0 ? requestBodyString : requestBody
+    const requestBodyString = JSON.stringify(reqConfig.data);
+    requestBody = requestBodyString.length !== 0 ? requestBodyString : requestBody;
   }
   if (!!reqConfig.method) {
     console.log(
       `Request: ${reqConfig.method.toUpperCase()} - ${reqConfig.url} ${JSON.stringify(
         reqConfig.params
       )}`
-    )
+    );
   } else {
-    console.log(`Request: [method] - ${reqConfig.url} ${JSON.stringify(reqConfig.params)}`)
+    console.log(`Request: [method] - ${reqConfig.url} ${JSON.stringify(reqConfig.params)}`);
   }
-  console.log(`Request body: ${requestBody}`)
-}
+  console.log(`Request body: ${requestBody}`);
+};
 
 network.interceptors.request.use(
   async (reqConfig: IRequestConfig) => {
-    requestLogger(reqConfig)
+    requestLogger(reqConfig);
 
     let token = localStorage.getItem(localStorageKeys.ACCESS_TOKEN);
-    console.log(token)
+    console.log(token);
 
     reqConfig.headers = {
       ...reqConfig.headers,
-      Authorization: `Bearer ${token}`
-    }
+      Authorization: `Bearer ${token}`,
+    };
 
-    return reqConfig
+    return reqConfig;
   },
   (err: AxiosError<any>) => Promise.reject(err)
-)
+);
 
 network.interceptors.response.use(
   async (response: AxiosResponse<any>) => {
-    responseLogger(response)
-    return response
+    responseLogger(response);
+    return response;
   },
   async (err: AxiosError<any>) => {
-    responseErrorLogger(err)
-    return Promise.reject(err)
+    responseErrorLogger(err);
+    return Promise.reject(err);
   }
-)
+);

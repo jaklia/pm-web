@@ -51,6 +51,13 @@
       }
     ]
   },
+  "prettier": {
+    "jsxSingleQuote": true,
+    "singleQuote": true,
+    "semi": true,
+    "printWidth": 100,
+    "jsxBracketSameLine": true
+  },
   "browserslist": {
     "production": [
       ">0.2%",

@@ -1,9 +1,8 @@
-import { Urls } from "../../constants/urls";
-import { Project } from "../../models/project";
-import { network } from "../network";
+import { Urls } from '../../constants/urls';
+import { Project } from '../../models/project';
+import { network } from '../network';
 
 export class ProjectsApi {
-
   static getAllProjects() {
     return network.get(Urls.projects);
   }
