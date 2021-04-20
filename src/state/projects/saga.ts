@@ -1,18 +1,23 @@
-import { all, takeEvery, put } from 'redux-saga/effects';
+import { AxiosResponse } from 'axios';
+import { all, takeEvery, put, call, delay } from 'redux-saga/effects';
+import { Project } from '../../models/project';
 import { ProjectsApi } from '../../network/api/projects';
 import {
   IGetProjectsRequestAction,
   getProjectsActionTypes,
   getProjectsSuccess,
+  getProjectsFail,
 } from './actions/get';
 import {
   IPostProjectsRequestAction,
   postProjectsActionTypes,
+  postProjectsFail,
   postProjectsSuccess,
 } from './actions/post';
 import {
   IPutProjectsRequestAction,
   putProjectsActionTypes,
+  putProjectsFail,
   putProjectsSuccess,
 } from './actions/put';
 
@@ -35,18 +40,28 @@ function* watchPutProjects() {
 
 function* getProjects(action: IGetProjectsRequestAction) {
   console.log('get project saga');
-  const mockProjects = [
-    { id: 1, name: 'asd 11', description: 'lorem ipsum', issueCount: 0 },
-    { id: 2, name: 'asd 22', description: 'lorem ipsum', issueCount: 0 },
-  ];
-  const res = ProjectsApi.getAllProjects();
-  yield put(getProjectsSuccess(mockProjects));
+  try {
+    const res: AxiosResponse<Project[]> = yield call(ProjectsApi.getAllProjects);
+    yield put(getProjectsSuccess(res.data));
+  } catch (error) {
+    yield put(getProjectsFail(error.message ?? 'Something went wrong'));
+  }
 }
 
 function* postProjects(action: IPostProjectsRequestAction) {
-  yield put(postProjectsSuccess({ id: 1, name: 'asd', description: 'lorem ipsum', issueCount: 0 }));
+  try {
+    const res: AxiosResponse<Project> = yield call(ProjectsApi.createProject, action.data);
+    yield put(postProjectsSuccess(res.data));
+  } catch (error) {
+    yield put(postProjectsFail(error.message ?? 'Something went wrong'));
+  }
 }
 
 function* putProjects(action: IPutProjectsRequestAction) {
-  yield put(putProjectsSuccess(action.data));
+  try {
+    const res: AxiosResponse = yield call(ProjectsApi.updateProject, action.data.id, action.data);
+    yield put(putProjectsSuccess(action.data));
+  } catch (error) {
+    yield put(putProjectsFail(error.message ?? 'Something went wrong'));
+  }
 }

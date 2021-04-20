@@ -1,3 +1,4 @@
+import { editProjectActionTypes, IEditProjectActions } from './actions/edit';
 import { getProjectsActionTypes, IGetProjectActions } from './actions/get';
 import { IPostProjectsActions, postProjectsActionTypes } from './actions/post';
 import { IPutProjectsActions, putProjectsActionTypes } from './actions/put';
@@ -5,14 +6,20 @@ import { initialProjectStore, IProjectsStore } from './store';
 
 export const projectsReducer = (
   state: IProjectsStore = initialProjectStore,
-  action: IGetProjectActions | IPostProjectsActions | IPutProjectsActions
+  action: IGetProjectActions | IPostProjectsActions | IPutProjectsActions | IEditProjectActions
 ): IProjectsStore => {
   switch (action.type) {
+    case editProjectActionTypes.EDIT:
+      return {
+        ...state,
+        editing: true,
+      };
     case getProjectsActionTypes.REQUEST:
       console.log('get projects request');
       return {
         ...state,
         isRequesting: true,
+        isLoaded: false,
       };
     case getProjectsActionTypes.SUCCESS:
       console.log('get projects success');
@@ -29,7 +36,7 @@ export const projectsReducer = (
         ...state,
         projects: [],
         isRequesting: false,
-        isLoaded: true,
+        isLoaded: false,
         error: action.reason,
       };
 
@@ -37,22 +44,21 @@ export const projectsReducer = (
       return {
         ...state,
         isRequesting: true,
-        isLoaded: false,
         error: null,
       };
     case postProjectsActionTypes.SUCCESS:
       return {
         ...state,
         projects: [...state.projects, action.data],
+        editing: false,
         isRequesting: false,
-        isLoaded: true,
         error: null,
       };
     case postProjectsActionTypes.FAIL:
       return {
         ...state,
+        editing: false,
         isRequesting: false,
-        isLoaded: true,
         error: action.reason,
       };
 
@@ -60,7 +66,6 @@ export const projectsReducer = (
       return {
         ...state,
         isRequesting: true,
-        isLoaded: false,
         error: null,
       };
     case putProjectsActionTypes.SUCCESS:
@@ -72,15 +77,15 @@ export const projectsReducer = (
           }
           return p;
         }),
+        editing: false,
         isRequesting: false,
-        isLoaded: true,
         error: null,
       };
     case putProjectsActionTypes.FAIL:
       return {
         ...state,
+        editing: false,
         isRequesting: false,
-        isLoaded: true,
         error: action.reason,
       };
     default:

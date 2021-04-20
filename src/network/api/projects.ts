@@ -4,11 +4,11 @@ import { network } from '../network';
 
 export class ProjectsApi {
   static getAllProjects() {
-    return network.get(Urls.projects);
+    return network.get<Project[]>(Urls.projects);
   }
 
   static createProject(project: Project) {
-    return network.post(Urls.projects, project);
+    return network.post<Project>(Urls.projects, project);
   }
 
   static updateProject(id: number, project: Project) {
