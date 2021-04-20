@@ -6,7 +6,9 @@ import { FiEdit, FiTrash, FiPlus } from "react-icons/fi";
 export type TableProps<T> = {
   header: string[],
   renderRow: (item: T) => JSX.Element,
-  data: T[]
+  data: T[],
+  onEdit: (item: T) => void,
+  onDelete: (item: T) => void,
 }
 
 const PmTable = <T extends unknown>(
@@ -15,25 +17,16 @@ const PmTable = <T extends unknown>(
   const {
     header,
     renderRow,
-    data
+    data,
+    onEdit,
+    onDelete
   } = props;
   //  className={'pmtable'}  doesn't work, it puts this className first, and overwrites it with it's own styles
   //   FIXME:   inline style only, because className won't work
   return (
-    <div style={{ width: '90%', margin: 32 }}>
+    <div >
 
-      <ButtonToolbar>
-        <Button style={{ display: 'flex', alignContent: 'center', alignItems: 'center' }} variant='outline-success'>
-          <FiPlus />
-          <span >
-
-            Add new
-          </span>
-        </Button>
-      </ButtonToolbar>
       <Table striped bordered hover className={'pmtable'} >
-
-
 
         <thead>
           {
@@ -54,12 +47,14 @@ const PmTable = <T extends unknown>(
                         paddingTop: 8, paddingBottom: 8,
                         marginRight: 12
                       }}
-                      variant='outline-primary'>
+                      variant='outline-primary'
+                      onClick={() => onEdit(item)}>
                       <FiEdit style={{ display: 'flex', alignSelf: 'center' }} />
                     </Button>
                     <Button
                       style={{ paddingTop: 8, paddingBottom: 8 }}
-                      variant='outline-danger'>
+                      variant='outline-danger'
+                      onClick={() => onDelete(item)}>
                       <FiTrash style={{ display: 'flex', alignSelf: 'center' }} />
                     </Button>
                     {/* </ButtonToolbar> */}
