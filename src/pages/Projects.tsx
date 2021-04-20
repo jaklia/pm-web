@@ -1,5 +1,9 @@
-import { FC, useEffect } from 'react'
+import React, { FC, useEffect } from 'react'
+import { Button, Table } from 'react-bootstrap';
+import { FiEdit, FiTrash } from 'react-icons/fi';
 import { useDispatch, useSelector } from 'react-redux'
+import PmTable from '../components/table';
+import { Project } from '../models/project';
 import { getProjectsRequest } from '../state/projects/actions/get';
 import { IApplicationState } from '../state/store'
 
@@ -15,10 +19,20 @@ const Projects: FC = () => {
 
 
   return (
-    <div>
-      <h1>Projects</h1>
-      <input type='button' onClick={() => alert('aasd')} value="add new" />
-      {store && store.projects.map(project => (<p key={project.id}>{project.name}</p>))}
+    <div >
+
+      <PmTable<Project>
+        header={['Name', 'Description']}
+        data={store.projects}
+        renderRow={(project) =>
+        (
+          <>
+            <td>{project.name}</td>
+            <td>{project.description}</td>
+          </>
+        )
+        }
+      />
     </div>
   )
 }

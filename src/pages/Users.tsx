@@ -16,7 +16,7 @@ export const Users: FC = () => {
   }, [dispatch])
 
   return (
-    <div>
+    <div >
       <h1>users</h1>
       <Table striped bordered hover >
         <thead>
