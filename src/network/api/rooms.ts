@@ -3,12 +3,12 @@ import { Room } from "../../models/room";
 import { network } from "../network";
 
 export class RoomsApi {
-  static getAllRoom() {
-    return network.get(Urls.rooms);
+  static getAllRooms() {
+    return network.get<Room[]>(Urls.rooms);
   }
 
   static createRoom(room: Room) {
-    return network.post(Urls.rooms, room);
+    return network.post<Room>(Urls.rooms, room);
   }
 
   static updateRoom(id: number, room: Room) {

@@ -27,9 +27,9 @@ const PmTable = <T extends unknown>({ ...props }: TableProps<T>) => {
           </tr>
         </thead>
         <tbody>
-          {data.map((item) => {
+          {data.map((item, i) => {
             return (
-              <tr>
+              <tr key={i.toString()}>
                 {renderRow(item)}
                 <td>
                   {/* <ButtonToolbar> */}

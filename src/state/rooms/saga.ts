@@ -1,8 +1,11 @@
-import { all, put, takeEvery } from "@redux-saga/core/effects";
+import { all, put, takeEvery, call } from "@redux-saga/core/effects";
+import { AxiosResponse } from 'axios';
+import { Room } from '../../models/room';
+import { RoomsApi } from '../../network/api/rooms';
 import { putProjectsActionTypes } from "../projects/actions/put";
-import { getRoomsActionTypes, getRoomsSuccess, IGetRoomsRequestAction } from "./actions/get";
-import { IPostRoomsRequestAction, postRoomsActionTypes, postRoomsSuccess } from "./actions/post";
-import { IPutRoomsRequestAction, putRoomsSuccess } from "./actions/put";
+import { getRoomsActionTypes, getRoomsFail, getRoomsSuccess, IGetRoomsRequestAction } from "./actions/get";
+import { IPostRoomsRequestAction, postRoomsActionTypes, postRoomsFail, postRoomsSuccess } from "./actions/post";
+import { IPutRoomsRequestAction, putRoomsFail, putRoomsSuccess } from "./actions/put";
 
 export function* roomsSaga() {
   yield all([watchRooms()]);
@@ -28,14 +31,28 @@ function* watchRooms() {
 // }
 
 function* getRooms(action: IGetRoomsRequestAction) {
-  const rooms = [{ id: 1, name: "R11", capacity: 20 }, { id: 2, name: "R22", capacity: 20 }];
-  yield put(getRoomsSuccess(rooms));
+  try {
+    const res: AxiosResponse<Room[]> = yield call(RoomsApi.getAllRooms);
+    yield put(getRoomsSuccess(res.data));
+  } catch (error) {
+    yield put(getRoomsFail(error.message ?? 'Something went wrong'));
+  }
 }
 
 function* postRooms(action: IPostRoomsRequestAction) {
-  yield put(postRoomsSuccess({ ...action.data, id: 1 }))
+  try {
+    const res: AxiosResponse<Room> = yield call(RoomsApi.createRoom, action.data);
+    yield put(postRoomsSuccess(res.data));
+  } catch (error) {
+    yield put(postRoomsFail(error.message ?? 'Something went wrong'));
+  }
 }
 
 function* putRooms(action: IPutRoomsRequestAction) {
-  yield put(putRoomsSuccess(action.data));
+  try {
+    yield call(RoomsApi.updateRoom, action.data.id, action.data);
+    yield put(putRoomsSuccess(action.data));
+  } catch (error) {
+    yield put(putRoomsFail(error.message ?? 'Something went wrong'));
+  }
 }
