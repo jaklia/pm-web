@@ -1,7 +1,6 @@
-import { FC } from 'react';
-import { Table, Button, ButtonToolbar } from 'react-bootstrap';
+import { Table, Button } from 'react-bootstrap';
 
-import { FiEdit, FiTrash, FiPlus } from 'react-icons/fi';
+import { FiEdit, FiTrash } from 'react-icons/fi';
 
 export type TableProps<T> = {
   header: string[];

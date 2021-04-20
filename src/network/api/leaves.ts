@@ -5,11 +5,11 @@ import { network } from "../network";
 export class LeavesApi {
 
   static getAllLeaves() {
-    return network.get(Urls.leaves);
+    return network.get<Leave[]>(Urls.leaves);
   }
 
   static createLeave(leave: Leave) {
-    return network.post(Urls.leaves, leave);
+    return network.post<Leave>(Urls.leaves, leave);
   }
 
   static updateLeave(id: number, leave: Leave) {
