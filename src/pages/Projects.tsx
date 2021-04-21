@@ -11,6 +11,7 @@ import { PmTextField } from '../components/pmTextField';
 import { putProjectsRequest } from '../state/projects/actions/put';
 import { postProjectsRequest } from '../state/projects/actions/post';
 import { editProjectRequest } from '../state/projects/actions/edit';
+import { DeleteModal } from '../components/deleteModal';
 
 const Projects: FC = () => {
   const store = useSelector((state: IApplicationState) => {
@@ -32,6 +33,7 @@ const Projects: FC = () => {
     }
   });
 
+  const [showDel, setShowDel] = useState(false);
   const [show, setShow] = useState(false);
   const [edited, setEdited] = useState<Project>({
     id: 0,
@@ -77,7 +79,7 @@ const Projects: FC = () => {
           setEdited(project);
         }}
         onDelete={(p) => {
-          alert(`delete ${p.name}?`);
+          setShowDel(true);
         }}
         renderRow={(project) => (
           <>
@@ -86,6 +88,11 @@ const Projects: FC = () => {
           </>
         )}
       />
+      <DeleteModal
+        show={showDel}
+        handleClose={() => setShowDel(false)}
+        handleDelete={() => {}}
+        title={'Delete project?'}></DeleteModal>
 
       <Modal show={show} onHide={handleClose} backdrop='static' keyboard={false}>
         <Modal.Header closeButton>
