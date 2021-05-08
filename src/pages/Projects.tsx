@@ -14,6 +14,16 @@ import { editProjectRequest } from '../state/projects/actions/edit';
 import { DeleteModal } from '../components/deleteModal';
 
 const Projects: FC = () => {
+  // state
+  const [showDel, setShowDel] = useState(false);
+  const [show, setShow] = useState(false);
+  const [edited, setEdited] = useState<Project>({
+    id: 0,
+    name: '',
+    description: '',
+    issueCount: 0,
+  });
+
   const store = useSelector((state: IApplicationState) => {
     return state.app.projects;
   });
@@ -27,19 +37,11 @@ const Projects: FC = () => {
   }, [dispatch]);
 
   // close the editing modal when we get a response
+  //  TODO:  dependency-be berakni a show-t ea az editing-et
   useEffect(() => {
     if (show && !editing) {
       handleClose();
     }
-  });
-
-  const [showDel, setShowDel] = useState(false);
-  const [show, setShow] = useState(false);
-  const [edited, setEdited] = useState<Project>({
-    id: 0,
-    name: '',
-    description: '',
-    issueCount: 0,
   });
 
   const handleClose = () => {

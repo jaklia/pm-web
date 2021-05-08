@@ -1,6 +1,6 @@
 import { FC, useCallback, useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { useHistory, useLocation, useParams } from 'react-router-dom';
+import { Redirect, useHistory, useLocation, useParams } from 'react-router-dom';
 import { loginRequest } from '../state/auth/actions/login';
 import { IApplicationState } from '../state/store';
 import '../styles/Login.css';
@@ -45,6 +45,10 @@ export const Login: FC = () => {
   //   history.replace(newRoute);
   // }
   console.log(location);
+
+  if (authenticated) {
+    return <Redirect to={'/welcome'} />;
+  }
 
   return (
     <div className='bg'>

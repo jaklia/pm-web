@@ -9,32 +9,27 @@ import Rooms from './pages/Rooms';
 import Users from './pages/Users';
 import PrivateRoute from './components/privateRoute';
 import Leaves from './pages/Leaves';
+import { Welcome } from './pages/welcome';
 
 function App() {
   return (
-    <BrowserRouter >
+    <BrowserRouter>
       <NavMenu />
       <Switch>
+        <Route exact path='/' component={Login} />
 
-        <Route exact path="/" component={Login} />
-
-
-        <PrivateRoute exact path="/users" component={Users} />
-        <PrivateRoute exact path="/projects" component={Projects} />
-        <PrivateRoute exact path="/meetings" component={Meetings} />
-        <PrivateRoute exact path="/leaves" component={Leaves} />
-        <PrivateRoute exact path="/rooms" component={Rooms} />
+        <PrivateRoute exact path='/welcome' component={Welcome} />
+        <PrivateRoute exact path='/users' component={Users} />
+        <PrivateRoute exact path='/projects' component={Projects} />
+        <PrivateRoute exact path='/meetings' component={Meetings} />
+        <PrivateRoute exact path='/leaves' component={Leaves} />
+        <PrivateRoute exact path='/rooms' component={Rooms} />
       </Switch>
     </BrowserRouter>
   );
 }
 
 export default App;
-
-
-
-
-
 
 /*
 
