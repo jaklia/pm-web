@@ -52,7 +52,7 @@ export const Login: FC = () => {
 
   return (
     <div className='bg'>
-      <h1>{authenticated ? 'true' : 'false'}</h1>
+      {/* <h1>{authenticated ? 'true' : 'false'}</h1> */}
       <form
         className='loginForm'
         // onSubmit={(e) => {

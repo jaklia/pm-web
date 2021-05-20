@@ -13,9 +13,9 @@ export default function NavMenu() {
           Projects
         </Nav.Link>
         {/* TODO: remove this, meetings can be modified from mobile client */}
-        <Nav.Link as={Link} to='/meetings' href='/meetings'>
+        {/* <Nav.Link as={Link} to='/meetings' href='/meetings'>
           Meetings
-        </Nav.Link>
+        </Nav.Link> */}
         <Nav.Link as={Link} to='/leaves' href='/leaves'>
           Leaves
         </Nav.Link>
